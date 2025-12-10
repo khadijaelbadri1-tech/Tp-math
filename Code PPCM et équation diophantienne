@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+// Algorithme d'Euclide étendu
+int extended_gcd(int a, int b, int *x, int *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+    int x1, y1;
+    int d = extended_gcd(b, a % b, &x1, &y1);
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    return d;
+}
+
+int main() {
+    int a, b, c;
+    printf("Entrez les valeurs de a, b et c pour résoudre ax + by = c :\n");
+    scanf("%d %d %d", &a, &b, &c);
+
+    int x, y;
+    int d = extended_gcd(a, b, &x, &y);
+
+    if (c % d != 0) {
+        printf("Pas de solution entière car PGCD(%d, %d) ne divise pas %d.\n", a, b, c);
+    } else {
+        int k = c / d;
+        printf("Solution particulière : x = %d, y = %d\n", x * k, y * k);
+        printf("Solutions générales :\n");
+        printf("x = %d + %d*t\n", x * k, b / d);
+        printf("y = %d - %d*t\n", y * k, a / d);
+    }
+
+    return 0;
+}
