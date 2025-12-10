@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+// Fonction pour calculer le PGCD de deux nombres
+int pgcd2(int a, int b) {
+    int r;
+    while (b != 0) {
+        r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+// Fonction pour calculer le PGCD de trois nombres
+int pgcd3(int a, int b, int c) {
+    return pgcd2(pgcd2(a, b), c);
+}
+
+int main() {
+    int a, b, c;
+    printf("Entrez trois entiers : ");
+    scanf("%d %d %d", &a, &b, &c);
+
+    int resultat = pgcd3(a, b, c);
+    printf("Le PGCD de %d, %d et %d est : %d\n", a, b, c, resultat);
+
+    return 0;
+}
